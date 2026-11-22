@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "revision": 1,
+  "reciters": [
+    {
+      "id": "husary",
+      "name": { "ar": "الحصري", "tr": "Husarî", "en": "Husary" },
+      "fullName": { "ar": "محمود خليل الحصري", "tr": "Mahmud Halil el-Husarî", "en": "Mahmoud Khalil Al-Husary" },
+      "monogram": "الحصري",
+      "initial": "ح",
+      "style": "murattal",
+      "rewayah": "hafs",
+      "surahs": "1-114",
+      "manifest": { "path": "manifests/husary.json", "sha256": "797bb4730c2cbbcdd9416d7c0da4f0101452b3e41b037f25fec18151bf7ec12c" },
+      "audio": [
+        {
+          "type": "ayah_files",
+          "url": "https://everyayah.com/data/Husary_128kbps/{surah3}{ayah3}.mp3"
+        },
+        {
+          "type": "surah_files",
+          "url": "https://download.quranicaudio.com/qdc/khalil_al_husary/murattal/{surah}.mp3",
+          "timestampsFrom": { "provider": "qurancom", "recitation": 6 }
+        }
+      ]
+    }
+  ]
+}

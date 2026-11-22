@@ -1,0 +1,5 @@
+# GitHub Pages (Jekyll). catalog/ is served as plain files.
+title: Recitation With
+exclude:
+  - tools/
+  - README.md

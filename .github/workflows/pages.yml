@@ -1,0 +1,63 @@
+name: Pages
+
+# Publishes this repo on GitHub Pages (https://tolunayykocak.github.io/recitation-with-site/).
+# catalog/ is the reciter catalog the Recitation With app checks at most once a day
+# (SPEC §5.0 in the app repo). It is not edited here by hand: the app repo's
+# "Audio manifest" workflow opens pull requests with it.
+#
+# Pull request: validate the catalog. main: validate, then build and deploy.
+# A catalog that fails the check is never published.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  catalog:
+    name: Catalog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check catalog/
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          # The revision must go up whenever the catalog changes, or apps would not download it.
+          base=""
+          if [ -n "$BASE_REF" ] && git show "$BASE_REF:catalog/reciters.json" > /tmp/base.json 2>/dev/null; then
+            base="--base /tmp/base.json"
+          fi
+          python3 tools/catalog.py check catalog $base
+
+  deploy:
+    needs: catalog
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - uses: actions/upload-pages-artifact@v3
+      - id: deployment
+        uses: actions/deploy-pages@v4
