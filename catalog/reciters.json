@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "reciters": [
     {
       "id": "husary",
@@ -34,6 +34,42 @@
           "timestampsFrom": {
             "provider": "qurancom",
             "recitation": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "alafasy",
+      "name": {
+        "ar": "العفاسي",
+        "tr": "Afâsî",
+        "en": "Alafasy"
+      },
+      "fullName": {
+        "ar": "مشاري راشد العفاسي",
+        "tr": "Mişârî Râşid el-Afâsî",
+        "en": "Mishary Rashid Alafasy"
+      },
+      "monogram": "العفاسي",
+      "initial": "ع",
+      "style": "murattal",
+      "rewayah": "hafs",
+      "surahs": "1-114",
+      "manifest": {
+        "path": "manifests/alafasy.json",
+        "sha256": "3b860902e52a8a2816e4280ac77f43f8bdcf6a082f4f642c4a5efe60730e8cb0"
+      },
+      "audio": [
+        {
+          "type": "ayah_files",
+          "url": "https://everyayah.com/data/Alafasy_128kbps/{surah3}{ayah3}.mp3"
+        },
+        {
+          "type": "surah_files",
+          "url": "https://download.quranicaudio.com/qdc/mishari_al_afasy/murattal/{surah}.mp3",
+          "timestampsFrom": {
+            "provider": "qurancom",
+            "recitation": 7
           }
         }
       ]
