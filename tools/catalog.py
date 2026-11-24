@@ -6,6 +6,8 @@ The catalog is a folder:
     reciters.json          schemaVersion, revision, reciters[]
     manifests/<id>.json    audio manifests (tools/audio/build_manifest.py)
     avatars/<id>.webp      optional photos, 512x512 WebP
+    words/<id>.bin         optional word timings (tools/words/build_words.py); published, but
+                           not packed into the app: it downloads them when first needed
 
 The master copy is app/src/main/assets/catalog/ (embedded in the app). The same folder is
 published as catalog/ in the public recitation-with-site repo (GitHub Pages), where the app
@@ -22,6 +24,7 @@ Standard library only, except `avatar` (Pillow).
 """
 
 import argparse
+import gzip
 import hashlib
 import json
 import re
@@ -41,6 +44,9 @@ SHA256 = re.compile(r"[0-9a-f]{64}")
 PHOTO_SIZE = 512
 MAX_PHOTO_BYTES = 256 * 1024  # the app refuses larger; aim for well under 100 KB
 MAX_MANIFEST_BYTES = 8 * 1024 * 1024
+MAX_WORDS_BYTES = 4 * 1024 * 1024  # keep in step with tools/words/build_words.py and the app
+WORDS_MAGIC = b"RWWT"
+WORDS_VERSION = 1
 
 
 class CatalogError(Exception):
@@ -210,6 +216,12 @@ def check(directory, base=None):
                         bad(f"{path} must be a still {PHOTO_SIZE}x{PHOTO_SIZE} WebP, is {w}x{h}{' animated' if animated else ''}")
                 except CatalogError as e:
                     bad(f"{path}: {e}")
+        words = r.get("words")
+        if words is not None:
+            for problem in check_words(directory, rid, words):
+                bad(problem)
+            if words.get("path"):
+                used.add(words["path"])
     stray = sorted(
         str(p.relative_to(directory)) for p in directory.rglob("*")
         if p.is_file() and str(p.relative_to(directory)) not in used and p.name != "README.md" and p.name != ".gitkeep"
@@ -233,6 +245,42 @@ def check(directory, base=None):
     return problems
 
 
+def check_words(directory, rid, words):
+    """Problems of a reciter's `words` entry (word timings, SPEC §5.4)."""
+    problems = []
+    if not isinstance(words, dict) or not isinstance(words.get("from"), dict) or not words["from"].get("provider"):
+        return ["words.from must name where the word timings come from (tools/words/build_words.py)"]
+    if words.get("enabled") is False:
+        if any(k in words for k in ("path", "sha256", "bytes")):
+            problems.append("words: switched off (enabled: false) but still has a file")
+        return problems
+    path, digest = words.get("path"), words.get("sha256", "")
+    expected = f"words/{rid}.bin"
+    if path is None:
+        return ["words has no file yet (run tools/words/build_words.py, or the Audio manifest workflow)"]
+    if path != expected:
+        return [f"words.path must be {expected}"]
+    file = Path(directory) / path
+    if not file.is_file():
+        return [f"{path} does not exist"]
+    data = file.read_bytes()
+    if not SHA256.fullmatch(digest) or digest != sha256(file):
+        problems.append(f"words.sha256 does not match {path} (run: tools/catalog/catalog.py stamp)")
+    if words.get("bytes") != len(data):
+        problems.append(f"words.bytes must be {len(data)} (run: tools/catalog/catalog.py stamp)")
+    if len(data) > MAX_WORDS_BYTES:
+        problems.append(f"{path} is larger than {MAX_WORDS_BYTES} bytes")
+    try:
+        body = gzip.decompress(data)
+        if body[:4] != WORDS_MAGIC or body[4] != WORDS_VERSION:
+            problems.append(f"{path}: not a word timing file of version {WORDS_VERSION}")
+    except (OSError, EOFError, IndexError) as e:
+        problems.append(f"{path}: {e}")
+    if not words.get("credit"):
+        problems.append("words.credit is missing (shown in Settings › Sources)")
+    return problems
+
+
 # --- stamp / changed ---------------------------------------------------------------------
 
 
@@ -245,6 +293,10 @@ def stamp(directory, base=None):
             ref = r.get(key)
             if ref and (directory / ref["path"]).is_file():
                 ref["sha256"] = sha256(directory / ref["path"])
+        words = r.get("words")
+        if words and words.get("path") and (directory / words["path"]).is_file():
+            words["sha256"] = sha256(directory / words["path"])
+            words["bytes"] = (directory / words["path"]).stat().st_size
     if base is not None:
         try:
             old = load(base)
