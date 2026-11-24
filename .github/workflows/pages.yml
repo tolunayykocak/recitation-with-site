@@ -2,7 +2,7 @@ name: Pages
 
 # Publishes this repo on GitHub Pages (https://tolunayykocak.github.io/recitation-with-site/).
 # catalog/ is the reciter catalog the Recitation With app checks at most once a day
-# (SPEC §5.0 in the app repo). It is not edited here by hand: the app repo's
+# (SPEC §5.0 in the app repo); catalog/translations/ holds the Quran translations (§6.1). It is not edited here by hand: the app repo's
 # "Audio manifest" workflow opens pull requests with it.
 #
 # Pull request: validate the catalog. main: validate, then build and deploy.
@@ -40,6 +40,16 @@ jobs:
             base="--base /tmp/base.json"
           fi
           python3 tools/catalog.py check catalog $base
+
+      # Quran translations (meal) from QuranEnc.com, published by the app repo's
+      # "Translations" workflow (SPEC §6.1 there). Same files as embedded in the app.
+      - name: Check catalog/translations/
+        run: |
+          if [ -d catalog/translations ]; then
+            python3 tools/translations.py check catalog/translations
+          else
+            echo "No catalog/translations/ yet."
+          fi
 
   deploy:
     needs: catalog
