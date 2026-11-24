@@ -8,6 +8,7 @@ Public site of the Recitation With app, served by GitHub Pages:
 | `catalog/reciters.json` | Reciter catalog: `schemaVersion`, `revision`, reciters |
 | `catalog/manifests/<id>.json` | Audio manifests (ayah durations, surah-file timestamps) |
 | `catalog/avatars/<id>.webp` | Optional reciter photos, 512×512 WebP |
+| `catalog/words/<id>.bin` | Optional word timings (which word is recited when, for word highlighting): gzip, built by the app repo's `tools/words/build_words.py` from cpfair/quran-align and QuranLab data (CC BY 4.0). Not in the app's APK: the app downloads a reciter's file when first needed |
 | `catalog/translations/translations.json` | Quran translations (meal) index: id, language, translator, QuranEnc version, file + sha256 |
 | `catalog/translations/<id>.json` | One translation from QuranEnc.com, unchanged: 114 surahs, 6236 ayahs, footnotes |
 | `tools/catalog.py` | Validator (`check`); copied from the app repo |
