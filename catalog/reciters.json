@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": 2,
+  "revision": 3,
   "reciters": [
     {
       "id": "husary",
@@ -71,6 +71,34 @@
             "provider": "qurancom",
             "recitation": 7
           }
+        }
+      ]
+    },
+    {
+      "id": "muaiqly",
+      "name": {
+        "ar": "المعيقلي",
+        "tr": "Muaykılî",
+        "en": "Al-Muaiqly"
+      },
+      "fullName": {
+        "ar": "ماهر المعيقلي",
+        "tr": "Mâhir el-Muaykılî",
+        "en": "Maher Al-Muaiqly"
+      },
+      "monogram": "المعيقلي",
+      "initial": "م",
+      "style": "murattal",
+      "rewayah": "hafs",
+      "surahs": "1-114",
+      "manifest": {
+        "path": "manifests/muaiqly.json",
+        "sha256": "8a3302c2130da6b6d4e9710395c9f712a8936a5795f38c0861bfb080a9eb6f56"
+      },
+      "audio": [
+        {
+          "type": "ayah_files",
+          "url": "https://everyayah.com/data/MaherAlMuaiqly128kbps/{surah3}{ayah3}.mp3"
         }
       ]
     }
