@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "revision": 1,
+  "translations": [
+    {
+      "id": "turkish_shahin",
+      "language": "tr",
+      "direction": "ltr",
+      "translator": {
+        "tr": "Ali Özek ve arkadaşları",
+        "en": "Ali Özek et al.",
+        "ar": "علي أوزك وآخرون"
+      },
+      "title": "Turkish Translation - Dr. Ali Ozek and others",
+      "description": "Translated by Ali Ozek and others, developed under the supervision of Rowad Translation Center. The original translation is available for expressing opinion, evaluation, and continuous development.",
+      "version": "1.0.0",
+      "lastUpdate": 1495486800,
+      "source": "QuranEnc.com",
+      "url": "https://quranenc.com/en/browse/turkish_shahin",
+      "footnotes": 0,
+      "file": {
+        "path": "turkish_shahin.json",
+        "sha256": "918f13a463f67fc02c513cca2fe01da78af4f8de14392dbe03746997828edfd2"
+      }
+    },
+    {
+      "id": "turkish_rwwad",
+      "language": "tr",
+      "direction": "ltr",
+      "translator": {
+        "tr": "Rowwad Çeviri Merkezi",
+        "en": "Rowwad Translation Center",
+        "ar": "مركز رواد للترجمة"
+      },
+      "title": "Turkish Translation - Rowwad Translation Center",
+      "description": "Translated by the team of the Rowwad Translation Center, in cooperation with the Rabwah Dawah Association, the Islamic Content Service Association in Languages, and the IslamHouse.com website.",
+      "version": "1.0.4",
+      "lastUpdate": 1759071052,
+      "source": "QuranEnc.com",
+      "url": "https://quranenc.com/en/browse/turkish_rwwad",
+      "footnotes": 29,
+      "file": {
+        "path": "turkish_rwwad.json",
+        "sha256": "c26353e6ba361a165ae4569f4d72513341c08bdb09749464e9284687c8cb7604"
+      }
+    },
+    {
+      "id": "english_saheeh",
+      "language": "en",
+      "direction": "ltr",
+      "translator": {
+        "tr": "Saheeh International",
+        "en": "Saheeh International",
+        "ar": "صحيح إنترناشونال"
+      },
+      "title": "English Translation - Noor International Center",
+      "description": "Issued by Noor International Center.",
+      "version": "1.1.2",
+      "lastUpdate": 1750772247,
+      "source": "QuranEnc.com",
+      "url": "https://quranenc.com/en/browse/english_saheeh",
+      "footnotes": 1613,
+      "file": {
+        "path": "english_saheeh.json",
+        "sha256": "ebc72c4a026ac25be6e204b0f7f74292bdb9859bbb8c6149704d9c22d654c302"
+      }
+    }
+  ]
+}

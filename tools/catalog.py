@@ -47,6 +47,9 @@ class CatalogError(Exception):
     pass
 
 
+TRANSLATIONS = "translations"
+
+
 def sha256(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
@@ -210,6 +213,8 @@ def check(directory, base=None):
     stray = sorted(
         str(p.relative_to(directory)) for p in directory.rglob("*")
         if p.is_file() and str(p.relative_to(directory)) not in used and p.name != "README.md" and p.name != ".gitkeep"
+        # translations/: Quran translations, published by tools/translations/translations.py and checked there.
+        and p.relative_to(directory).parts[0] != TRANSLATIONS
     )
     for p in stray:
         problems.append(f"{p}: not listed in reciters.json (delete it)")
@@ -307,9 +312,17 @@ def publish(directory, site):
     """Makes SITE/catalog an exact copy of DIR and SITE/tools/catalog.py this script."""
     directory, site = Path(directory), Path(site)
     target = site / "catalog"
+    # catalog/translations/ comes from tools/translations/translations.py: keep it.
+    kept = None
+    if (target / TRANSLATIONS).exists():
+        kept = site / ".translations-keep"
+        shutil.rmtree(kept, ignore_errors=True)
+        shutil.move(str(target / TRANSLATIONS), kept)
     if target.exists():
         shutil.rmtree(target)
     shutil.copytree(directory, target)
+    if kept is not None:
+        shutil.move(str(kept), target / TRANSLATIONS)
     (site / "tools").mkdir(parents=True, exist_ok=True)
     shutil.copy2(Path(__file__), site / "tools" / "catalog.py")
 
