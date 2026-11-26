@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": 3,
+  "revision": 4,
   "reciters": [
     {
       "id": "husary",
@@ -36,7 +36,18 @@
             "recitation": 6
           }
         }
-      ]
+      ],
+      "words": {
+        "from": {
+          "provider": "quran-align",
+          "release": "release-2016-11-24",
+          "recording": "Husary_64kbps"
+        },
+        "credit": "cpfair/quran-align (Collin Fair), CC BY 4.0",
+        "path": "words/husary.bin",
+        "sha256": "97e8896c811a3b13b837c2efb57f7f4d107bedfe54a93daf685b16de3c301402",
+        "bytes": 162621
+      }
     },
     {
       "id": "alafasy",
@@ -72,7 +83,18 @@
             "recitation": 7
           }
         }
-      ]
+      ],
+      "words": {
+        "from": {
+          "provider": "quran-align",
+          "release": "release-2016-11-24",
+          "recording": "Alafasy_128kbps"
+        },
+        "credit": "cpfair/quran-align (Collin Fair), CC BY 4.0",
+        "path": "words/alafasy.bin",
+        "sha256": "f1d8197c09b8b2e7d6937f4d79f271d0d9b49a1d6634bb503078da1309989986",
+        "bytes": 142598
+      }
     },
     {
       "id": "muaiqly",
@@ -100,7 +122,18 @@
           "type": "ayah_files",
           "url": "https://everyayah.com/data/MaherAlMuaiqly128kbps/{surah3}{ayah3}.mp3"
         }
-      ]
+      ],
+      "words": {
+        "from": {
+          "provider": "quranlab",
+          "revision": "55d48a9cfc9dec3836efc9b0f8631c4ff6399c28",
+          "config": "maher-al-muaiqly"
+        },
+        "credit": "QuranLab (quranlab/quran-audio), CC BY 4.0",
+        "path": "words/muaiqly.bin",
+        "sha256": "87f0bb3f1938050f6c2acf161f25bc7009e2d339fab3b59e20eade2d5a32c683",
+        "bytes": 205719
+      }
     }
   ]
 }
