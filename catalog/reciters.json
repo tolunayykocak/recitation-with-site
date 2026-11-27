@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": 4,
+  "revision": 5,
   "reciters": [
     {
       "id": "husary",
@@ -16,6 +16,11 @@
       },
       "monogram": "الحصري",
       "initial": "ح",
+      "photo": {
+        "path": "avatars/husary.webp",
+        "sha256": "c180cb1a8c2a0eddee14f1e0b10621b37411fc996d73fec202c852085e51ab1c",
+        "credit": "Coloured-pencil portrait drawn with AI from reference portraits."
+      },
       "style": "murattal",
       "rewayah": "hafs",
       "surahs": "1-114",
@@ -63,6 +68,11 @@
       },
       "monogram": "العفاسي",
       "initial": "ع",
+      "photo": {
+        "path": "avatars/alafasy.webp",
+        "sha256": "47fe2eb015bbe9951bc71c05506c8d91a17a4ba0386b4b46007ef21a05125ec1",
+        "credit": "Coloured-pencil sketch made with AI from a photo by quranic.ru on Wikimedia Commons (copyrighted free use)."
+      },
       "style": "murattal",
       "rewayah": "hafs",
       "surahs": "1-114",
@@ -110,6 +120,11 @@
       },
       "monogram": "المعيقلي",
       "initial": "م",
+      "photo": {
+        "path": "avatars/muaiqly.webp",
+        "sha256": "c209573e53ae032496eb5c7478bc5d6231a609bf90018e6355005f86edd4205b",
+        "credit": "Coloured-pencil sketch made with AI from the photo \"Maher Al Mueaqly.jpg\" by الشيخ هيثم الدخين on Wikimedia Commons; shoulders and background adapted to a square. CC BY-SA 3.0, creativecommons.org/licenses/by-sa/3.0"
+      },
       "style": "murattal",
       "rewayah": "hafs",
       "surahs": "1-114",

@@ -216,6 +216,8 @@ def check(directory, base=None):
                         bad(f"{path} must be a still {PHOTO_SIZE}x{PHOTO_SIZE} WebP, is {w}x{h}{' animated' if animated else ''}")
                 except CatalogError as e:
                     bad(f"{path}: {e}")
+                if not str(ref.get("credit", "")).strip():
+                    bad("photo.credit is missing (source and license, shown in Settings › Sources)")
         words = r.get("words")
         if words is not None:
             for problem in check_words(directory, rid, words):
