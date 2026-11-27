@@ -1,0 +1,38 @@
+name: Check published catalog (temporary)
+on:
+  push:
+    branches: [claude/optimistic-mccarthy-q4zwq3]
+    paths: [".github/workflows/probe-pages.yml"]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Compare GitHub Pages with main
+        run: |
+          base=https://tolunayykocak.github.io/recitation-with-site/catalog
+          python3 - "$base" <<'PY'
+          import hashlib, json, sys, urllib.request
+          base = sys.argv[1]
+          def get(path):
+              req = urllib.request.Request(f"{base}/{path}", headers={"Cache-Control": "no-cache"})
+              with urllib.request.urlopen(req, timeout=30) as r:
+                  return r.status, r.read()
+          ok = True
+          status, live = get("reciters.json")
+          local = open("catalog/reciters.json", "rb").read()
+          same = json.loads(live) == json.loads(local)
+          print(f"reciters.json HTTP {status}, revision {json.loads(live)['revision']}, same as main: {same}")
+          ok &= same
+          for r in json.loads(local)["reciters"]:
+              w = r.get("words") or {}
+              if not w.get("path"):
+                  print(f"{r['id']}: no words file"); continue
+              status, data = get(f"{w['path']}?v={w['sha256'][:12]}")
+              good = hashlib.sha256(data).hexdigest() == w["sha256"] and len(data) == w["bytes"]
+              print(f"{w['path']} HTTP {status}, {len(data)} bytes, sha256 matches reciters.json: {good}")
+              ok &= good
+          sys.exit(0 if ok else 1)
+          PY
