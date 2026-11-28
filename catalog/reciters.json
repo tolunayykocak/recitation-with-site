@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": 5,
+  "revision": 6,
   "reciters": [
     {
       "id": "husary",
@@ -19,7 +19,7 @@
       "photo": {
         "path": "avatars/husary.webp",
         "sha256": "c180cb1a8c2a0eddee14f1e0b10621b37411fc996d73fec202c852085e51ab1c",
-        "credit": "Coloured-pencil portrait drawn with AI from reference portraits."
+        "credit": "Coloured-pencil sketch made with ChatGPT from two reference images supplied by the app's author."
       },
       "style": "murattal",
       "rewayah": "hafs",
